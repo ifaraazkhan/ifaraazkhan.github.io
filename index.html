@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Faraaz Astro Dashboard</title>
+    <meta name="description" content="Astro dashboard developed by faraaz khan" />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+
+
+    <link href="vendors/apexcharts/dist/apexcharts.css" rel="stylesheet" type="text/css" />
+
+
+    <!-- Custom CSS -->
+    <link href="dist/css/style.css" rel="stylesheet" type="text/css">
+
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v4.js"></script>
+</head>
+
+<body>
+    <!-- Preloader 
+    <div class="preloader-it">
+        <div class="loader-pendulums"></div>
+    </div>
+    -->
+    <!-- /Preloader -->
+
+    <!-- HK Wrapper -->
+    <div class="hk-wrapper hk-vertical-nav">
+
+        <!-- Top Navbar -->
+        <nav class="navbar navbar-expand-xl navbar-light fixed-top hk-navbar">
+            <a id="navbar_toggle_btn" class="navbar-toggle-btn nav-link-hover" href="javascript:void(0);"><span class="feather-icon"><i data-feather="menu"></i></span></a>
+            <a class="navbar-brand font-weight-700" href="dashboard1.html">
+                Astro
+            </a>
+            <ul class="navbar-nav hk-navbar-content">
+
+                <li class="nav-item dropdown dropdown-notifications">
+                    <a class="nav-link dropdown-toggle no-caret" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="feather-icon"><i data-feather="bell"></i></span><span class="badge-wrap"><span class="badge badge-primary badge-indicator badge-indicator-sm badge-pill pulse"></span></span></a>
+                    <div class="dropdown-menu dropdown-menu-right" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                        <h6 class="dropdown-header">Notifications <a href="javascript:void(0);" class="">View all</a></h6>
+                        <div class="notifications-nicescroll-bar">
+                            <a href="javascript:void(0);" class="dropdown-item">
+                                <div class="media">
+                                    <div class="media-img-wrap">
+                                        <div class="avatar avatar-sm">
+                                            <img src="dist/img/avatar1.jpg" alt="user" class="avatar-img rounded-circle">
+                                        </div>
+                                    </div>
+                                    <div class="media-body">
+                                        <div>
+                                            <div class="notifications-text"><span class="text-dark text-capitalize">FRK</span> accepted your invitation to join the team</div>
+                                            <div class="notifications-time">12m</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown dropdown-authentication">
+                    <a class="nav-link dropdown-toggle no-caret" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="media">
+                            <div class="media-img-wrap">
+                                <div class="avatar">
+                                    <img src="dist/img/avatar12.jpg" alt="user" class="avatar-img rounded-circle">
+                                </div>
+                                <span class="badge badge-success badge-indicator"></span>
+                            </div>
+                            <div class="media-body">
+                                <span>Faraaz Khan<i class="zmdi zmdi-chevron-down"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" data-dropdown-in="flipInX" data-dropdown-out="flipOutX">
+                        <a class="dropdown-item" href="#"><i class="dropdown-icon zmdi zmdi-account"></i><span>Profile</span></a>
+
+                        <a class="dropdown-item" href="#"><i class="dropdown-icon zmdi zmdi-email"></i><span>Inbox</span></a>
+                        <a class="dropdown-item" href="#"><i class="dropdown-icon zmdi zmdi-settings"></i><span>Settings</span></a>
+                        <div class="dropdown-divider"></div>
+                        <div class="sub-dropdown-menu show-on-hover">
+                            <a href="#" class="dropdown-toggle dropdown-item no-caret"><i class="zmdi zmdi-check text-success"></i>Online</a>
+                            <div class="dropdown-menu open-left-side">
+                                <a class="dropdown-item" href="#"><i class="dropdown-icon zmdi zmdi-check text-success"></i><span>Online</span></a>
+                                <a class="dropdown-item" href="#"><i class="dropdown-icon zmdi zmdi-circle-o text-warning"></i><span>Busy</span></a>
+                                <a class="dropdown-item" href="#"><i class="dropdown-icon zmdi zmdi-minus-circle-outline text-danger"></i><span>Offline</span></a>
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#"><i class="dropdown-icon zmdi zmdi-power"></i><span>Log out</span></a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- /Top Navbar -->
+
+        <!-- Vertical Nav -->
+        <nav class="hk-nav hk-nav-dark">
+            <a href="javascript:void(0);" id="hk_nav_close" class="hk-nav-close"><span class="feather-icon"><i data-feather="x"></i></span></a>
+            <div class="nicescroll-bar">
+                <div class="navbar-nav-wrap">
+                    <ul class="navbar-nav flex-column">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#dash_drp">
+                                <span class="feather-icon"><i data-feather="activity"></i></span>
+                                <span class="nav-link-text">Dashboard</span>
+                            </a>
+                            <ul id="dash_drp" class="nav flex-column collapse collapse-level-1">
+                                <li class="nav-item">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item active">
+                                            <a class="nav-link" href="#">Stars</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">Planets</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">Statistics</a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#auth_drp">
+                                <span class="feather-icon"><i data-feather="zap"></i></span>
+                                <span class="nav-link-text">Authentication</span>
+                            </a>
+                            <ul id="auth_drp" class="nav flex-column collapse collapse-level-1">
+                                <li class="nav-item">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#signup_drp">
+													Sign Up
+												</a>
+
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#signin_drp">
+													Login
+												</a>
+
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#recover_drp">
+													Recover Password
+												</a>
+                                            <ul id="recover_drp" class="nav flex-column collapse collapse-level-2">
+                                                <li class="nav-item">
+                                                    <ul class="nav flex-column">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="">Forgot Password</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="">Reset Password</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="">Lock Screen</a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                    <hr class="nav-separator">
+                    <div class="nav-header">
+                        <span>User Interaction</span>
+                        <span>UI</span>
+                    </div>
+                    <ul class="navbar-nav flex-column">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#content_drp">
+                                <span class="feather-icon"><i data-feather="type"></i></span>
+                                <span class="nav-link-text">Link 1</span>
+                            </a>
+                            <ul id="content_drp" class="nav flex-column collapse collapse-level-1">
+                                <li class="nav-item">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="">Sub Link</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="">Sub Link</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="">Sub Link</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#utilities_drp">
+                                <span class="feather-icon"><i data-feather="anchor"></i></span>
+                                <span class="nav-link-text">Link 2</span>
+                            </a>
+                            <ul id="utilities_drp" class="nav flex-column collapse collapse-level-1">
+                                <li class="nav-item">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="">Sub Link</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="">Sub Link</a>
+                                        </li>
+
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#forms_drp">
+                                <span class="feather-icon"><i data-feather="server"></i></span>
+                                <span class="nav-link-text">Link 3</span>
+                            </a>
+                            <ul id="forms_drp" class="nav flex-column collapse collapse-level-1">
+                                <li class="nav-item">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="">Sub Link</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="">Sub Link</a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                    <hr class="nav-separator">
+                    <div class="nav-header">
+                        <span>Support Services</span>
+                        <span>SS</span>
+                    </div>
+                    <ul class="navbar-nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="">
+                                <span class="feather-icon"><i data-feather="book"></i></span>
+                                <span class="nav-link-text">Documentation</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link-with-badge" href="#">
+                                <span class="feather-icon"><i data-feather="eye"></i></span>
+                                <span class="nav-link-text">Chat</span>
+
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="feather-icon"><i data-feather="headphones"></i></span>
+                                <span class="nav-link-text">Support</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div id="hk_nav_backdrop" class="hk-nav-backdrop"></div>
+        <!-- /Vertical Nav -->
+
+
+
+        <!-- Main Content -->
+        <div class="hk-pg-wrapper">
+            <!-- Container -->
+            <div class="container mt-xl-50 mt-sm-30 mt-15">
+                <!-- Title -->
+                <div class="hk-pg-header align-items-top">
+                    <div>
+                        <h2 class="hk-pg-title font-weight-600 mb-10">Astrology Data Dashboard</h2>
+                        <p>Questions about astrology lead data? <a href="#">Learn more.</a></p>
+                    </div>
+                    <div class="d-flex">
+                        <button class="btn btn-sm btn-outline-light btn-wth-icon icon-wthot-bg mr-15 mb-15"><span class="icon-label"><i class="fa fa-envelope-o"></i> </span><span class="btn-text">Email </span></button>
+                        <button class="btn btn-sm btn-outline-light btn-wth-icon icon-wthot-bg mr-15 mb-15"><span class="icon-label"><i class="fa fa-print"></i> </span><span class="btn-text">Print </span></button>
+                        <button class="btn btn-sm btn-outline-primary btn-wth-icon icon-wthot-bg mb-15"><span class="icon-label"><i class="fa fa-download"></i> </span><span class="btn-text">Export </span></button>
+                    </div>
+                </div>
+                <!-- /Title -->
+
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hk-row">
+                            <div class="col-lg-7">
+
+
+
+
+                                <div class="card card-refresh">
+                                    <div class="refresh-container">
+                                        <div class="loader-pendulums"></div>
+                                    </div>
+                                    <div class="card-header card-header-action">
+                                        <h6>Graph Animation using d3.js</h6>
+                                        <div class="d-flex align-items-center card-action-wrap">
+                                            <a href="#" class="inline-block refresh mr-15">
+                                                <i class="ion ion-md-radio-button-off"></i>
+                                            </a>
+                                            <div class="inline-block dropdown">
+                                                <a class="dropdown-toggle no-caret" data-toggle="dropdown" href="#" aria-expanded="false" role="button"><i class="ion ion-md-more"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                    <a class="dropdown-item" href="#">Another action</a>
+                                                    <a class="dropdown-item" href="#">Something else here</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Separated link</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="my_dataviz"></div>
+                                    </div>
+                                </div>
+
+
+                                <div class="card card-refresh">
+                                    <div class="refresh-container">
+                                        <div class="loader-pendulums"></div>
+                                    </div>
+                                    <div class="card-header card-header-action">
+                                        <h6>Dynamic Data Animation</h6>
+                                        <div class="d-flex align-items-center card-action-wrap">
+                                            <a href="#" class="inline-block refresh mr-15">
+                                                <i class="ion ion-md-radio-button-off"></i>
+                                            </a>
+                                            <div class="inline-block dropdown">
+                                                <a class="dropdown-toggle no-caret" data-toggle="dropdown" href="#" aria-expanded="false" role="button"><i class="ion ion-md-more"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                    <a class="dropdown-item" href="#">Another action</a>
+                                                    <a class="dropdown-item" href="#">Something else here</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Separated link</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Add 2 buttons -->
+                                        <button onclick="update(data1)">Dataset 1</button>
+                                        <button onclick="update(data2)">Dataset 2</button>
+                                        <div id="my_secondmap"></div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="card card-refresh">
+                                    <div class="refresh-container">
+                                        <div class="loader-pendulums"></div>
+                                    </div>
+                                    <div class="card-header card-header-action">
+                                        <h6>Data Visualization d3.js</h6>
+                                        <div class="d-flex align-items-center card-action-wrap">
+                                            <a href="#" class="inline-block refresh mr-15">
+                                                <i class="ion ion-md-radio-button-off"></i>
+                                            </a>
+                                            <div class="inline-block dropdown">
+                                                <a class="dropdown-toggle no-caret" data-toggle="dropdown" href="#" aria-expanded="false" role="button"><i class="ion ion-md-more"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                    <a class="dropdown-item" href="#">Another action</a>
+                                                    <a class="dropdown-item" href="#">Something else here</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Separated link</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Add 2 buttons -->
+
+                                        <div id="my_thirdmap"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-5">
+
+
+                                <div class="card card-sm">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between mb-5">
+                                            <div>
+                                                <span class="d-block font-15 text-dark font-weight-500">Visits</span>
+                                            </div>
+                                            <div>
+                                                <span class="badge badge-primary  badge-sm">+10%</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span class="d-block display-5 text-dark mb-5">76.5K</span>
+                                            <small class="d-block">172,458 xxxxxx</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="card card-sm">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between mb-5">
+                                            <div>
+                                                <span class="d-block font-15 text-dark font-weight-500">Users</span>
+                                            </div>
+                                            <div>
+                                                <span class="badge badge-danger   badge-sm">+10%</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span class="d-block display-5 text-dark mb-5">68M</span>
+                                            <small class="d-block">90M Targeted</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="card">
+                                    <div class="card-header card-header-action">
+                                        <h6>Visit by Traffic Types</h6>
+                                        <div class="d-flex align-items-center card-action-wrap">
+                                            <div class="inline-block dropdown">
+                                                <a class="dropdown-toggle no-caret" data-toggle="dropdown" href="#" aria-expanded="false" role="button"><i class="ion ion-ios-more"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                    <a class="dropdown-item" href="#">Another action</a>
+                                                    <a class="dropdown-item" href="#">Something else here</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Separated link</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="e_chart_3" style="height:250px;"></div>
+                                        <div class="hk-legend-wrap mt-20">
+                                            <div class="hk-legend">
+                                                <span class="d-10 bg-purple rounded-circle d-inline-block"></span><span>18-24</span>
+                                            </div>
+                                            <div class="hk-legend">
+                                                <span class="d-10 bg-grey-light-1 rounded-circle d-inline-block"></span><span>25-34</span>
+                                            </div>
+                                            <div class="hk-legend">
+                                                <span class="d-10 bg-grey-light-2  rounded-circle d-inline-block"></span><span>35-44</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="hk-legend-wrap mb-10">
+                                            <div class="hk-legend">
+                                                <span class="d-10 bg-purple rounded-circle d-inline-block"></span><span>Today</span>
+                                            </div>
+                                            <div class="hk-legend">
+                                                <span class="d-10 bg-grey-light-1  rounded-circle d-inline-block"></span><span>Yesterday</span>
+                                            </div>
+                                        </div>
+                                        <div id="e_chart_1" class="echart" style="height:200px;"></div>
+                                        <div class="row mt-20">
+                                            <div class="col-4">
+                                                <span class="d-block text-capitalize mb-5">Previous</span>
+                                                <span class="d-block font-weight-600 font-13">79.82</span>
+                                            </div>
+                                            <div class="col-4">
+                                                <span class="d-block text-capitalize mb-5">% Change</span>
+                                                <span class="d-block font-weight-600 font-13">+14.29</span>
+                                            </div>
+                                            <div class="col-4">
+                                                <span class="d-block text-capitalize mb-5">Trend</span>
+                                                <span class="block">
+													<i class="zmdi zmdi-trending-down text-danger font-20"></i>
+												</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Row -->
+            </div>
+            <!-- /Container -->
+
+            <!-- Footer -->
+            <div class="hk-footer-wrap container">
+                <footer class="footer">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <p>Pampered by<a href="#" class="text-dark" target="_blank">Faraaz Khan</a> © 2020</p>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <p class="d-inline-block">Follow us</p>
+                            <a href="#" class="d-inline-block btn btn-icon btn-icon-only btn-indigo btn-icon-style-4"><span class="btn-icon-wrap"><i class="fa fa-facebook"></i></span></a>
+                            <a href="#" class="d-inline-block btn btn-icon btn-icon-only btn-indigo btn-icon-style-4"><span class="btn-icon-wrap"><i class="fa fa-twitter"></i></span></a>
+                            <a href="#" class="d-inline-block btn btn-icon btn-icon-only btn-indigo btn-icon-style-4"><span class="btn-icon-wrap"><i class="fa fa-google-plus"></i></span></a>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+            <!-- /Footer -->
+        </div>
+        <!-- /Main Content -->
+
+    </div>
+    <!-- /HK Wrapper -->
+    <script>
+        // set the dimensions and margins of the graph
+        var margin = {
+                top: 10,
+                right: 30,
+                bottom: 30,
+                left: 60
+            },
+            width = 560 - margin.left - margin.right,
+            height = 400 - margin.top - margin.bottom;
+
+        // append the svg object to the body of the page
+        var svg = d3.select("#my_dataviz")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
+
+        //Read the data
+        d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered_comma.csv",
+
+            // When reading the csv, I must format variables:
+            function(d) {
+                return {
+                    date: d3.timeParse("%Y-%m-%d")(d.date),
+                    value: d.value
+                }
+            },
+
+            // Now I can use this dataset:
+            function(data) {
+
+                // Add X axis --> it is a date format
+                var x = d3.scaleTime()
+                    .domain(d3.extent(data, function(d) {
+                        return d.date;
+                    }))
+                    .range([0, width]);
+                svg.append("g")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(d3.axisBottom(x));
+
+                // Add Y axis
+                var y = d3.scaleLinear()
+                    .domain([0, d3.max(data, function(d) {
+                        return +d.value;
+                    })])
+                    .range([height, 0]);
+                svg.append("g")
+                    .call(d3.axisLeft(y));
+
+                // Add the line
+                var line2 = svg.append("path")
+                    .datum(data)
+                    .attr("fill", "none")
+                    .attr("stroke", "green")
+                    .attr("stroke-linejoin", "round")
+                    .attr("stroke-linecap", "round")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", d3.line()
+                        .x(function(d) {
+                            return x(d.date)
+                        })
+                        .y(function(d) {
+                            return y(d.value)
+                        })
+                    )
+                var totalLength = line2.node().getTotalLength();
+
+                line2.attr("stroke-dasharray", totalLength)
+                    .attr("stroke-dashoffset", totalLength)
+                    .transition()
+                    .duration(6000)
+                    .attr('stroke-dashoffset', 0);
+
+            })
+    </script>
+    <!-- SECON DMAP -->
+    <script>
+        // Create 2 datasets
+        var data1 = [{
+            ser1: 0.3,
+            ser2: 4
+        }, {
+            ser1: 2,
+            ser2: 16
+        }, {
+            ser1: 3,
+            ser2: 8
+        }];
+
+        var data2 = [{
+            ser1: 1,
+            ser2: 7
+        }, {
+            ser1: 4,
+            ser2: 1
+        }, {
+            ser1: 6,
+            ser2: 8
+        }];
+
+        // set the dimensions and margins of the graph
+        var margin = {
+                top: 10,
+                right: 30,
+                bottom: 30,
+                left: 50
+            },
+            width = 560 - margin.left - margin.right,
+            height = 400 - margin.top - margin.bottom;
+
+        // append the svg object to the body of the page
+        var svg2 = d3.select("#my_secondmap")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
+
+        // Initialise a X axis:
+        var x = d3.scaleLinear().range([0, width]);
+        var xAxis = d3.axisBottom().scale(x);
+        svg2.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .attr("class", "myXaxis")
+
+        // Initialize an Y axis
+        var y = d3.scaleLinear().range([height, 0]);
+        var yAxis = d3.axisLeft().scale(y);
+        svg2.append("g")
+            .attr("class", "myYaxis")
+
+        // Create a function that takes a dataset as input and update the plot:
+        function update(data) {
+
+            // Create the X axis:
+            x.domain([0, d3.max(data, function(d) {
+                return d.ser1
+            })]);
+            svg2.selectAll(".myXaxis").transition()
+                .duration(3000)
+                .call(xAxis);
+
+            // create the Y axis
+            y.domain([0, d3.max(data, function(d) {
+                return d.ser2
+            })]);
+            svg2.selectAll(".myYaxis")
+                .transition()
+                .duration(3000)
+                .call(yAxis);
+
+            // Create a update selection: bind to the new data
+            var u = svg2.selectAll(".lineTest")
+                .data([data], function(d) {
+                    return d.ser1
+                });
+
+            // Updata the line
+            u
+                .enter()
+                .append("path")
+                .attr("class", "lineTest")
+                .merge(u)
+                .transition()
+                .duration(3000)
+                .attr("d", d3.line()
+                    .x(function(d) {
+                        return x(d.ser1);
+                    })
+                    .y(function(d) {
+                        return y(d.ser2);
+                    }))
+                .attr("fill", "none")
+                .attr("stroke", "steelblue")
+                .attr("stroke-width", 2.5)
+        }
+
+        // At the beginning, I run the update function on the first dataset:
+        update(data1)
+    </script>
+
+    <!-- THIRD MAP -->
+    <script>
+        // set the dimensions and margins of the graph
+        var margin = {
+                top: 10,
+                right: 10,
+                bottom: 30,
+                left: 50
+            },
+            width = 560 - margin.left - margin.right,
+            height = 400 - margin.top - margin.bottom;
+
+        // append the svg object to the body of the page
+        var svg3 = d3.select("#my_thirdmap")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
+
+
+        //Read the data
+        d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_IC.csv", function(data) {
+
+            // Add X axis --> it is a date format
+            var x = d3.scaleLinear()
+                .domain([1, 100])
+                .range([0, width]);
+            svg3.append("g")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x));
+
+            // Add Y axis
+            var y = d3.scaleLinear()
+                .domain([0, 13])
+                .range([height, 0]);
+            svg3.append("g")
+                .call(d3.axisLeft(y));
+
+            // This allows to find the closest X index of the mouse:
+            var bisect = d3.bisector(function(d) {
+                return d.x;
+            }).left;
+
+            // Create the circle that travels along the curve of chart
+            var focus = svg3
+                .append('g')
+                .append('circle')
+                .style("fill", "none")
+                .attr("stroke", "black")
+                .attr('r', 8.5)
+                .style("opacity", 0)
+
+            // Create the text that travels along the curve of chart
+            var focusText = svg3
+                .append('g')
+                .append('text')
+                .style("opacity", 0)
+                .attr("text-anchor", "left")
+                .attr("alignment-baseline", "middle")
+
+            // Add the line
+            svg3
+                .append("path")
+                .datum(data)
+                .attr("fill", "none")
+                .attr("stroke", "steelblue")
+                .attr("stroke-width", 1.5)
+                .attr("d", d3.line()
+                    .x(function(d) {
+                        return x(d.x)
+                    })
+                    .y(function(d) {
+                        return y(d.y)
+                    })
+                )
+
+
+
+
+
+
+
+            // Create a rect on top of the svg area: this rectangle recovers mouse position
+            svg3
+                .append('rect')
+                .style("fill", "none")
+                .style("pointer-events", "all")
+                .attr('width', width)
+                .attr('height', height)
+                .on('mouseover', mouseover)
+                .on('mousemove', mousemove)
+                .on('mouseout', mouseout);
+
+
+            // What happens when the mouse move -> show the annotations at the right positions.
+            function mouseover() {
+                focus.style("opacity", 1)
+                focusText.style("opacity", 1)
+            }
+
+            function mousemove() {
+                // recover coordinate we need
+                var x0 = x.invert(d3.mouse(this)[0]);
+                var i = bisect(data, x0, 1);
+                selectedData = data[i]
+                focus
+                    .attr("cx", x(selectedData.x))
+                    .attr("cy", y(selectedData.y))
+                focusText
+                    .html("time:" + selectedData.x + "  -  " + "degree:" + selectedData.y)
+                    .attr("x", x(selectedData.x) + 15)
+                    .attr("y", y(selectedData.y))
+            }
+
+            function mouseout() {
+                focus.style("opacity", 0)
+                focusText.style("opacity", 0)
+            }
+
+        })
+    </script>
+
+
+    <!-- jQuery -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Slimscroll JavaScript -->
+    <script src="dist/js/jquery.slimscroll.js"></script>
+
+    <!-- Fancy Dropdown JS -->
+    <script src="dist/js/dropdown-bootstrap-extended.js"></script>
+
+    <!-- FeatherIcons JavaScript -->
+    <script src="dist/js/feather.min.js"></script>
+
+
+
+    <!-- EChartJS JavaScript -->
+    <script src="vendors/echarts/dist/echarts-en.min.js"></script>
+
+
+
+
+
+
+
+
+    <!-- Init JavaScript -->
+    <script src="dist/js/init.js"></script>
+    <script src="dist/js/dashboard-data.js"></script>
+
+
+
+</body>
+
+</html>
